@@ -1,9 +1,9 @@
 // Made by Shalev and Yuval
-
-#include <stido.h>
+#include <stdio.h>
 #include "NumClass.h"
 
 int main(){
-    printf("hello world\n");
+    int x = isPalindrome(0);
+    printf("%d", x);
 return 0;
 }

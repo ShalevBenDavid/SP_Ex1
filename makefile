@@ -1,4 +1,3 @@
-// Made by Shalev and Yuval
 
 all: mains maindloop maindrec recursives recursived loopd loops
 
