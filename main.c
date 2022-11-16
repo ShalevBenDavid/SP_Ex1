@@ -3,7 +3,5 @@
 #include "NumClass.h"
 
 int main(){
-    int x = isPalindrome(0);
-    printf("%d", x);
-return 0;
+    return 0;
 }

@@ -2,7 +2,7 @@
 #include <math.h>
 #include "NumClass.h"
 
-/*int isPalindrome(int num) {
+int isPalindrome(int num) {
 	if (num < 0)
 		return 0;
 	if (num == 0)
@@ -23,7 +23,7 @@
 				return 0;
 	}
 	return 1;
-}*/
+}
 
 int isArmstrong (int num) {
     if (num < 0)
