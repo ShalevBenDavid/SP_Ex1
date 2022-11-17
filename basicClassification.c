@@ -1,6 +1,7 @@
 // Made by Shalev and Yuval
 #include <math.h>
 #include "NumClass.h"
+#include <stdbool.h>
 
 int factorial (int n) {
     int result = 1;
@@ -11,7 +12,7 @@ int factorial (int n) {
 
 int isStrong (int num) {
     if (num <= 0) {
-        return 0;
+        return false;
     }
     int temp = num;
     int sum = 0;
@@ -19,14 +20,14 @@ int isStrong (int num) {
         sum += factorial(temp % 10);
         temp = temp / 10;
     }
-    return (sum == num) ? 1 : 0;
+    return (sum == num) ? true : false;
 }
 
 int isPrime (int num) {
     if (num < 1)
-		return 0;
+		return false;
 	for (int i = 2; i <= sqrt(num); i++)
 		if (!(num % i))
-			return 0;
-	return 1;
+			return false;
+	return true;
 }
