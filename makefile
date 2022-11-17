@@ -1,39 +1,35 @@
 
 all: mains maindloop maindrec recursives recursived loopd loops
 
-
-mains:
-
-maindloop:
-
-maindrec:
-
-	
 loops: basicClassification.o advancedClassificationLoop.o
 	ar -rcs -o libclassloops.a basicClassification.o advancedClassificationLoop.o
 
 recursives: basicClassification.o advancedClassificationRecursion.o
 	ar -rcs -o libclassrec.a basicClassification.o advancedClassificationRecursion.o
 
-recursived:
+recursived: basicClassification.o advancedClassificationRecursion.o
+	gcc -shared -Wall -g basicClassification.o advancedClassificationRecursion.o -o libclassrec.so -lm
 
-loopd:
+loopd: basicClassification.o advancedClassificationLoop.o
+	gcc -shared -Wall -g basicClassification.o advancedClassificationLoop.o -o libclassloops.so -lm
 
-mains:
-	gcc libclassrec.a main.c -o mains -Wall
+mains: main.o libclassrec.a
+	gcc -Wall -g -o mains main.o libclassrec.a -lm
 
-maindloop:
+maindloop: main.o libclassloops.so
+	gcc -Wall -g -o maindloop main.o ./libclassloops.so -lm
 
-maindrec:
+maindrec: main.o libclassrec.so
+	gcc -Wall -g -o maindrec main.o ./libclassrec.so -lm
 
-basicClassification.o: basicClassification.c
-	gcc -c basicClassification.c -Wall
+basicClassification.o: basicClassification.c NumClass.h
+	gcc -Wall -g -c basicClassification.c -lm
 
-advancedClassificationLoop.o: advancedClassificationLoop.c
-	gcc -c advancedClassificationLoop.c -Wall
+advancedClassificationLoop.o: advancedClassificationLoop.c NumClass.h
+	gcc -Wall -g -c advancedClassificationLoop.c -lm
 
-advancedClassificationRecursion.o: advancedClassificationRecursion.c
-	gcc -c advancedClassificationRecursion.c -Wall
+advancedClassificationRecursion.o: advancedClassificationRecursion.c NumClass.h
+	gcc -Wall -g -c advancedClassificationRecursion.c -lm
 
 clean:
-	rm -f *.o *.a
+	rm -f *.o *.a *.so mains maindloop maindrec
