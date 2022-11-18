@@ -1,35 +1,43 @@
+.PHONY: all clean loops loopd recursives recursived
+#Defining Macros
+CC = gcc
+AR = ar
+FLAGS= -Wall -g
+LOOP = basicClassification.o advancedClassificationLoop.o
+RECURSIVE = basicClassification.o advancedClassificationRecursion.o
 
-all: mains maindloop maindrec recursives recursived loopd loops
+all: mains maindloop maindrec loops loopd recursives recursived
 
-loops: basicClassification.o advancedClassificationLoop.o
-	ar -rcs -o libclassloops.a basicClassification.o advancedClassificationLoop.o
-
-recursives: basicClassification.o advancedClassificationRecursion.o
-	ar -rcs -o libclassrec.a basicClassification.o advancedClassificationRecursion.o
-
-recursived: basicClassification.o advancedClassificationRecursion.o
-	gcc -shared -Wall -g basicClassification.o advancedClassificationRecursion.o -o libclassrec.so -lm
-
-loopd: basicClassification.o advancedClassificationLoop.o
-	gcc -shared -Wall -g basicClassification.o advancedClassificationLoop.o -o libclassloops.so -lm
-
+#Creating Main Files
 mains: main.o libclassrec.a
-	gcc -Wall -g -o mains main.o libclassrec.a -lm
-
+	$(CC) $(FLAGS) -o mains main.o -lclassrec -L. -lm
 maindloop: main.o libclassloops.so
-	gcc -Wall -g -o maindloop main.o ./libclassloops.so -lm
-
+	$(CC) $(FLAGS) -o maindloop main.o -lclassloops -L. -lm
 maindrec: main.o libclassrec.so
-	gcc -Wall -g -o maindrec main.o ./libclassrec.so -lm
-
+	$(CC) $(FLAGS) -o maindrec main.o -lclassrec -L. -lm
+#Creating Static Libraries
+loops: libclassloops.a
+libclassloops.a: $(LOOP)
+	$(AR) rcu libclassloops.a $(LOOP)
+recursives: libclassrec.a
+libclassrec.a: $(RECURSIVE)
+	$(AR) rcu libclassrec.a $(RECURSIVE)
+#Creating Dynamic Libraries
+loopd:libclassloops.so
+libclassloops.so: $(LOOP)
+	$(CC) $(FLAGS) -shared -o libclassloops.so $(LOOP)
+recursived: libclassrec.so
+libclassrec.so: $(RECURSIVE)
+	$(CC) $(FLAGS) -shared -o libclassrec.so $(RECURSIVE)
+#Crating Objects
+main.o: main.c NumClass.h
+	$(CC) $(FLAGS) -c main.c
 basicClassification.o: basicClassification.c NumClass.h
-	gcc -Wall -g -c basicClassification.c -lm
-
+	$(CC) $(FLAGS) -c basicClassification.c -lm
 advancedClassificationLoop.o: advancedClassificationLoop.c NumClass.h
-	gcc -Wall -g -c advancedClassificationLoop.c -lm
-
+	$(CC) $(FLAGS) -c advancedClassificationLoop.c -lm
 advancedClassificationRecursion.o: advancedClassificationRecursion.c NumClass.h
-	gcc -Wall -g -c advancedClassificationRecursion.c -lm
+	$(CC) $(FLAGS) -c advancedClassificationRecursion.c -lm
 
 clean:
 	rm -f *.o *.a *.so mains maindloop maindrec
