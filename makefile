@@ -33,11 +33,11 @@ libclassrec.so: $(RECURSIVE)
 main.o: main.c NumClass.h
 	$(CC) $(FLAGS) -c main.c
 basicClassification.o: basicClassification.c NumClass.h
-	$(CC) $(FLAGS) -c basicClassification.c -lm
+	$(CC) $(FLAGS) -c -fPIC basicClassification.c -lm
 advancedClassificationLoop.o: advancedClassificationLoop.c NumClass.h
-	$(CC) $(FLAGS) -c advancedClassificationLoop.c -lm
+	$(CC) $(FLAGS) -c -fPIC advancedClassificationLoop.c -lm
 advancedClassificationRecursion.o: advancedClassificationRecursion.c NumClass.h
-	$(CC) $(FLAGS) -c advancedClassificationRecursion.c -lm
+	$(CC) $(FLAGS) -c -fPIC advancedClassificationRecursion.c -lm
 
 clean:
 	rm -f *.o *.a *.so mains maindloop maindrec
