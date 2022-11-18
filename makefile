@@ -12,16 +12,16 @@ all: mains maindloop maindrec loops loopd recursives recursived
 mains: main.o libclassrec.a
 	$(CC) $(FLAGS) -o mains main.o -L. -lclassrec -lm
 maindloop: main.o libclassloops.so
-	$(CC) $(FLAGS) -o maindloop main.o -lclassloops ./libclassloops.so -lm
+	$(CC) $(FLAGS) -o maindloop main.o ./libclassloops.so -lm
 maindrec: main.o libclassrec.so
-	$(CC) $(FLAGS) -o maindrec main.o -lclassrec ./libclassrec.so -lm
+	$(CC) $(FLAGS) -o maindrec main.o ./libclassrec.so -lm
 #Creating Static Libraries
 loops: libclassloops.a
 libclassloops.a: $(LOOP)
-	$(AR) rcu libclassloops.a $(LOOP)
+	$(AR) -rc libclassloops.a $(LOOP)
 recursives: libclassrec.a
 libclassrec.a: $(RECURSIVE)
-	$(AR) rcu libclassrec.a $(RECURSIVE)
+	$(AR) -rc libclassrec.a $(RECURSIVE)
 #Creating Dynamic Libraries
 loopd:libclassloops.so
 libclassloops.so: $(LOOP)
