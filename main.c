@@ -4,7 +4,6 @@
 
 int main(){
     int x, y, min, max;
-    printf("Enter 2 numbers: \n");
     if (scanf("%d %d", &x, &y) != 2) {
         printf("Error: Input Error");
         goto skip;
