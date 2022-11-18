@@ -10,7 +10,7 @@ all: mains maindloop maindrec loops loopd recursives recursived
 
 #Creating Main Files
 mains: main.o libclassrec.a
-	$(CC) $(FLAGS) -o mains main.o -lclassrec -L. -lm
+	$(CC) $(FLAGS) -o mains main.o -L. -lclassrec -lm
 maindloop: main.o libclassloops.so
 	$(CC) $(FLAGS) -o maindloop main.o -lclassloops ./libclassloops.so -lm
 maindrec: main.o libclassrec.so
