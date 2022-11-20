@@ -8,17 +8,12 @@ int isPalindrome(int num) {
 		return false;
 	if (num == 0)
 		return true;
-	int numLength = (int) log10(num) + 1;
-	int numArray[numLength];
-	for (int i = 0; i < numLength; i++) {
-		numArray[i] = num % 10;
-		num /= 10;
-	}
-	for (int i = 0; i <= numLength / 2; i++) {
-		if (numArray[i] != numArray[numLength-i-1])
-				return false;
-	}
-	return true;
+    int temp = num, reversedNum = 0;
+    while (temp != 0) {
+        reversedNum = (reversedNum * 10) + (temp % 10);
+        temp /= 10;
+    }
+	return (num == reversedNum) ? true : false;
 }
 
 int isArmstrong (int num) {
